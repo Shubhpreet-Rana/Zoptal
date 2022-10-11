@@ -51,10 +51,13 @@ class HomeController extends GetxController {
   }
 
   void sendSMSToSavedList() async {
+
+    List<String> recipients = SavedContacts.map((e) => e.phone).toList();
+    print(recipients);
     if (await Permission.sms.request().isGranted) {
       String _result = await sendSMS(
               message: "Testing",
-              recipients: ["7696005728", "6283928403"],
+              recipients:recipients,
               sendDirect: true)
           .catchError((onError) {
         print(onError);
